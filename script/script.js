@@ -13,8 +13,8 @@ function rightWall(obj) {
 
 // DINOSAUR
 function Dinosaur(x, dividerY) {
-  this.width = 55;
-  this.height = 70;
+  this.width = 120;
+  this.height = 71;
   this.x = x;
   this.y = dividerY - this.height;
   this.vy = 0;
@@ -22,8 +22,13 @@ function Dinosaur(x, dividerY) {
 }
 Dinosaur.prototype.draw = function (context) {
   var oldFill = context.fillStyle;
-  context.fillStyle = "red";
-  context.fillRect(this.x, this.y, this.width, this.height);
+  context.clearRect(this.x, this.y, this.width, this.height);
+
+  var santa = new Image(); // Create new img element
+  santa.src = "assets/santa.png"; // Set source path
+  let pattern = context.createPattern(santa, "no-repeat");
+  context.fillStyle = pattern;
+  context.drawImage(santa, this.x, this.y, this.width, this.height);
   context.fillStyle = oldFill;
 };
 Dinosaur.prototype.jump = function () {
@@ -187,7 +192,8 @@ Game.prototype.draw = function () {
 
   var oldFill = this.context.fillStyle;
   this.context.fillStyle = "black";
-  this.context.fillText(this.score, this.width - 40, 30);
+  this.context.font = "20px sans-serif";
+  this.context.fillText("Score: " + this.score, this.width - 120, 30);
   this.context.fillStyle = oldFill;
 };
 
