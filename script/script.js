@@ -60,8 +60,8 @@ Divider.prototype.draw = function (context) {
 // ----------
 // CACTUS
 function Cactus(gameWidth, groundY) {
-  this.width = 16; //fixed width cactus
-  this.height = Math.random() > 0.5 ? 30 : 70; // two different cactus
+  this.width = 30; 
+  this.height = 50;
   this.x = gameWidth;
 
   this.x = gameWidth; // spawn cactus at screen end
@@ -70,8 +70,14 @@ function Cactus(gameWidth, groundY) {
 
 Cactus.prototype.draw = function (context) {
   var oldFill = context.fillStyle;
-  context.fillStyle = "green";
-  context.fillRect(this.x, this.y, this.width, this.height);
+
+  context.clearRect(this.x, this.y, this.width, this.height);
+
+  var tree = new Image(); // Create new img element
+  tree.src = "assets/tree.png"; // Set source path
+  let pattern = context.createPattern(tree, "no-repeat");
+  context.fillStyle = pattern;
+  context.drawImage(tree, this.x, this.y, this.width, this.height);
   context.fillStyle = oldFill;
 };
 
@@ -170,7 +176,7 @@ Game.prototype.update = function () {
   }
 
   //Jump Distance of the Dinosaur
-  // This is a CONSTANT in this gamebecause run speed is constant
+  // This is a CONSTANT in this game because run speed is constant
   //Equations: time = t * 2 * v / g where v is the jump velocity
   // Horizontal ditance s = vx * t where vx is the run speed
   this.jumpDistance = Math.floor(
