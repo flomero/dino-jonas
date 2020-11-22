@@ -174,7 +174,7 @@ Game.prototype.update = function () {
 
   for (i = 0; i < this.cacti.length; i++) {
     if (
-      rightWall(this.dino) >= leftWall(this.cacti[i]) &&
+      rightWall(this.dino) - 2 >= leftWall(this.cacti[i]) &&
       leftWall(this.dino) <= rightWall(this.cacti[i]) &&
       bottomWall(this.dino) >= topWall(this.cacti[i])
     ) {
