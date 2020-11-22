@@ -11,6 +11,7 @@ function rightWall(obj) {
   return obj.x + obj.width;
 }
 
+let variation = 0;
 // DINOSAUR
 function Dinosaur(x, dividerY) {
   this.width = 120;
@@ -21,11 +22,20 @@ function Dinosaur(x, dividerY) {
   this.jumpVelocity = -20;
 }
 Dinosaur.prototype.draw = function (context) {
+  variation++;
+  if (variation > 15) {
+    if (variation > 30) {
+      variation = 0;
+    }
+    var santa = new Image(); // Create new img element
+    santa.src = "assets/santa.png"; // Set source path
+  } else {
+    var santa = new Image(); // Create new img element
+    santa.src = "assets/santa-alt.png"; // Set source path
+  }
   var oldFill = context.fillStyle;
   context.clearRect(this.x, this.y, this.width, this.height);
 
-  var santa = new Image(); // Create new img element
-  santa.src = "assets/santa.png"; // Set source path
   let pattern = context.createPattern(santa, "no-repeat");
   context.fillStyle = pattern;
   context.drawImage(santa, this.x, this.y, this.width, this.height);
@@ -60,7 +70,7 @@ Divider.prototype.draw = function (context) {
 // ----------
 // CACTUS
 function Cactus(gameWidth, groundY) {
-  this.width = 30; 
+  this.width = 30;
   this.height = 50;
   this.x = gameWidth;
 
