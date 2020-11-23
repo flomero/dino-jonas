@@ -126,12 +126,14 @@ function Game() {
   this.firstTime = true;
 
   canvas.addEventListener("click", function (event) {
-    console.log(event);
+    if (!game.paused) {
+      return;
+    }
     let x = event.clientX;
     let y = event.clientY;
 
     // Collision detection between clicked offset and element.
-    if (y > 145 && y < 160 && x > 345 && x < 490) {
+    if (y > 75 && y < 225 && x > 330 && x < 480) {
       game.paused = false;
       game.cacti = [];
       game.noOfFrames = 0;
@@ -232,9 +234,15 @@ Game.prototype.draw = function () {
   this.context.fillText("high: " + this.high, this.width - 110, 60);
 
   if (this.paused) {
-    game.firstTime
-      ? this.context.fillText("start game", 350, 150)
-      : this.context.fillText("restart game", 345, 150);
+    if (game.firstTime) {
+      this.context.fillText("start game", 350, 150);
+    } else {
+      var restart = new Image(); // Create new img element
+      restart.src = "assets/restart.png"; // Set source path
+      let pattern = this.context.createPattern(restart, "no-repeat");
+      this.context.fillStyle = pattern;
+      this.context.drawImage(restart, 330, 75);
+    }
   }
   this.context.fillStyle = oldFill;
 };
