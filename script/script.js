@@ -23,7 +23,6 @@ function Dinosaur(x, dividerY) {
 }
 Dinosaur.prototype.draw = function (context, paused) {
   variation++;
-  console.log(paused);
   if (variation > 15 || paused) {
     if (variation > 30) {
       variation = 0;
