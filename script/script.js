@@ -126,12 +126,12 @@ function Game() {
   this.firstTime = true;
 
   canvas.addEventListener("click", function (event) {
+    console.log(event);
     let x = event.clientX;
     let y = event.clientY;
 
     // Collision detection between clicked offset and element.
-    if (y > 20 && y < 40 && x > 30 && x < 170) {
-      console.log("starting game!");
+    if (y > 145 && y < 160 && x > 345 && x < 490) {
       game.paused = false;
       game.cacti = [];
       game.noOfFrames = 0;
@@ -233,8 +233,8 @@ Game.prototype.draw = function () {
 
   if (this.paused) {
     game.firstTime
-      ? this.context.fillText("start game", 30, 30)
-      : this.context.fillText("restart game", 30, 30);
+      ? this.context.fillText("start game", 350, 150)
+      : this.context.fillText("restart game", 345, 150);
   }
   this.context.fillStyle = oldFill;
 };
