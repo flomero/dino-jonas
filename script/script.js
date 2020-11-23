@@ -235,7 +235,11 @@ Game.prototype.draw = function () {
 
   if (this.paused) {
     if (game.firstTime) {
-      this.context.fillText("start game", 350, 150);
+      var start = new Image(); // Create new img element
+      start.src = "assets/start.png"; // Set source path
+      let pattern = this.context.createPattern(start, "no-repeat");
+      this.context.fillStyle = pattern;
+      this.context.drawImage(start, 330, 75);
     } else {
       var restart = new Image(); // Create new img element
       restart.src = "assets/restart.png"; // Set source path
