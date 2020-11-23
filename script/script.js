@@ -226,7 +226,9 @@ Game.prototype.draw = function () {
   this.context.fillStyle = "black";
   this.context.font = "20px sans-serif";
   this.context.fillText("Score: " + this.score, this.width - 120, 30);
-  this.context.fillText("Start game", 30, 30);
+  if (this.paused) {
+    this.context.fillText("Start game", 30, 30);
+  }
   this.context.fillStyle = oldFill;
 };
 
