@@ -21,15 +21,16 @@ function Dinosaur(x, dividerY) {
   this.vy = 0;
   this.jumpVelocity = -20;
 }
-Dinosaur.prototype.draw = function (context) {
+Dinosaur.prototype.draw = function (context, paused) {
   variation++;
-  if (variation > 15) {
+  console.log(paused);
+  if (variation > 15 || paused) {
     if (variation > 30) {
       variation = 0;
     }
     var santa = new Image(); // Create new img element
     santa.src = "assets/santa.png"; // Set source path
-  } else {
+  } else if (!paused) {
     var santa = new Image(); // Create new img element
     santa.src = "assets/santa-alt.png"; // Set source path
   }
@@ -215,7 +216,7 @@ Game.prototype.draw = function () {
   // draw divider line
   this.divider.draw(this.context);
   // draw the dinosaur
-  this.dino.draw(this.context);
+  this.dino.draw(this.context, this.paused);
   //drawing the cactii
   for (i = 0; i < this.cacti.length; i++) {
     this.cacti[i].draw(this.context);
