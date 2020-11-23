@@ -122,6 +122,7 @@ function Game() {
   this.paused = true;
   this.noOfFrames = 0;
   this.score = 0;
+  this.high = 0;
   this.firstTime = true;
 
   canvas.addEventListener("click", function (event) {
@@ -200,6 +201,7 @@ Game.prototype.update = function () {
     }
     this.noOfFrames++;
     this.score = Math.floor(this.noOfFrames / 10);
+    if (this.score > this.high) this.high = this.score;
   }
 
   //Jump Distance of the Dinosaur
@@ -226,7 +228,9 @@ Game.prototype.draw = function () {
   var oldFill = this.context.fillStyle;
   this.context.fillStyle = "black";
   this.context.font = "20px sans-serif";
-  this.context.fillText("Score: " + this.score, this.width - 120, 30);
+  this.context.fillText("score: " + this.score, this.width - 120, 30);
+  this.context.fillText("high: " + this.high, this.width - 110, 60);
+
   if (this.paused) {
     game.firstTime
       ? this.context.fillText("start game", 30, 30)
