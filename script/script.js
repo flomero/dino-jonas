@@ -61,6 +61,7 @@ function Divider(gameWidth, gameHeight) {
   this.height = 4;
   this.x = 0;
   this.y = gameHeight - this.height - Math.floor(0.2 * gameHeight);
+  console.log(this.y);
 }
 Divider.prototype.draw = function (context) {
   context.fillRect(this.x, this.y, this.width, this.height);
@@ -118,8 +119,20 @@ function Game() {
   this.cacti = [];
 
   this.runSpeed = -10;
-  this.paused = false;
+  this.paused = true;
   this.noOfFrames = 0;
+
+  canvas.addEventListener("click", function (event) {
+    let x = event.clientX;
+    let y = event.clientY;
+
+    // Collision detection between clicked offset and element.
+    if (y > 20 && y < 40 && x > 30 && x < 150) {
+      console.log("starting game!");
+      game.paused = false;
+      game.cacti = [];
+    }
+  });
 }
 
 Game.prototype.spawnCactus = function (
@@ -182,7 +195,10 @@ Game.prototype.update = function () {
       this.paused = true;
     }
     this.noOfFrames++;
-    this.score = Math.floor(this.noOfFrames / 10);
+    this.score =
+      Math.floor(this.noOfFrames / 10) === undefined
+        ? 0
+        : Math.floor(this.noOfFrames / 10);
   }
 
   //Jump Distance of the Dinosaur
@@ -210,6 +226,7 @@ Game.prototype.draw = function () {
   this.context.fillStyle = "black";
   this.context.font = "20px sans-serif";
   this.context.fillText("Score: " + this.score, this.width - 120, 30);
+  this.context.fillText("Start game", 30, 30);
   this.context.fillStyle = oldFill;
 };
 
