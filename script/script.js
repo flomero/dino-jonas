@@ -121,6 +121,7 @@ function Game() {
   this.runSpeed = -10;
   this.paused = true;
   this.noOfFrames = 0;
+  this.score = 0;
 
   canvas.addEventListener("click", function (event) {
     let x = event.clientX;
@@ -131,6 +132,7 @@ function Game() {
       console.log("starting game!");
       game.paused = false;
       game.cacti = [];
+      game.noOfFrames = 0;
     }
   });
 }
@@ -195,10 +197,7 @@ Game.prototype.update = function () {
       this.paused = true;
     }
     this.noOfFrames++;
-    this.score =
-      Math.floor(this.noOfFrames / 10) === undefined
-        ? 0
-        : Math.floor(this.noOfFrames / 10);
+    this.score = Math.floor(this.noOfFrames / 10);
   }
 
   //Jump Distance of the Dinosaur
