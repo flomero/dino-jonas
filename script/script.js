@@ -123,17 +123,19 @@ function Game() {
   this.paused = true;
   this.noOfFrames = 0;
   this.score = 0;
+  this.firstTime = true;
 
   canvas.addEventListener("click", function (event) {
     let x = event.clientX;
     let y = event.clientY;
 
     // Collision detection between clicked offset and element.
-    if (y > 20 && y < 40 && x > 30 && x < 150) {
+    if (y > 20 && y < 40 && x > 30 && x < 170) {
       console.log("starting game!");
       game.paused = false;
       game.cacti = [];
       game.noOfFrames = 0;
+      game.firstTime = false;
     }
   });
 }
@@ -227,7 +229,9 @@ Game.prototype.draw = function () {
   this.context.font = "20px sans-serif";
   this.context.fillText("Score: " + this.score, this.width - 120, 30);
   if (this.paused) {
-    this.context.fillText("Start game", 30, 30);
+    game.firstTime
+      ? this.context.fillText("start game", 30, 30)
+      : this.context.fillText("restart game", 30, 30);
   }
   this.context.fillStyle = oldFill;
 };
