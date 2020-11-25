@@ -219,7 +219,7 @@ Game.prototype.draw = function () {
   // clear rectangle of game
   this.context.clearRect(0, 0, this.width, this.height);
   // draw divider line
-  this.divider.draw(this.context);
+  //this.divider.draw(this.context);
   // draw the dinosaur
   this.dino.draw(this.context, this.paused);
   //drawing the cactii
