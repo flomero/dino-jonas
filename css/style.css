@@ -3,5 +3,11 @@ body {
 }
 
 #game {
-    background: white;
+    background-image: url("../assets/bg-light.png")
+}
+
+@media (prefers-color-scheme: dark) {
+    #game {
+        background-image: url("../assets/bg-dark.png")
+    }
 }

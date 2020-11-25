@@ -228,7 +228,7 @@ Game.prototype.draw = function () {
   }
 
   var oldFill = this.context.fillStyle;
-  this.context.fillStyle = "black";
+  this.context.fillStyle = "#FCF7F8";
   this.context.font = "20px sans-serif";
   this.context.fillText("score: " + this.score, this.width - 120, 30);
   this.context.fillText("high: " + this.high, this.width - 110, 60);
