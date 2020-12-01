@@ -1,3 +1,9 @@
+var canvas = document.getElementById("game");
+canvas.style.height = canvas.clientWidth / 2;
+canvas.width = canvas.clientWidth;
+canvas.height = canvas.clientWidth / 2;
+var factor = canvas.clientWidth / 800;
+
 function topWall(obj) {
   return obj.y;
 }
@@ -14,12 +20,12 @@ function rightWall(obj) {
 let variation = 0;
 // DINOSAUR
 function Dinosaur(x, dividerY) {
-  this.width = 120;
-  this.height = 71;
+  this.width = 120 * factor;
+  this.height = 71 * factor;
   this.x = x;
   this.y = dividerY - this.height;
   this.vy = 0;
-  this.jumpVelocity = -20;
+  this.jumpVelocity = -20 * factor;
 }
 Dinosaur.prototype.draw = function (context, paused) {
   variation++;
@@ -42,7 +48,6 @@ Dinosaur.prototype.draw = function (context, paused) {
   context.fillStyle = oldFill;
 };
 Dinosaur.prototype.jump = function () {
-  console.log("Jump called");
   this.vy = this.jumpVelocity;
 };
 Dinosaur.prototype.update = function (divider, gravity) {
@@ -58,10 +63,9 @@ Dinosaur.prototype.update = function (divider, gravity) {
 // DIVIDER
 function Divider(gameWidth, gameHeight) {
   this.width = gameWidth;
-  this.height = 4;
+  this.height = 4 * factor;
   this.x = 0;
   this.y = gameHeight - this.height - Math.floor(0.2 * gameHeight);
-  console.log(this.y);
 }
 Divider.prototype.draw = function (context) {
   context.fillRect(this.x, this.y, this.width, this.height);
@@ -71,8 +75,8 @@ Divider.prototype.draw = function (context) {
 // ----------
 // CACTUS
 function Cactus(gameWidth, groundY) {
-  this.width = 30;
-  this.height = 50;
+  this.width = 30 * factor;
+  this.height = 50 * factor;
   this.x = gameWidth;
 
   this.x = gameWidth; // spawn cactus at screen end
@@ -113,12 +117,12 @@ function Game() {
   document.addEventListener("keyup", function (e) {
     if (e.key === " ") this.spacePressed = false;
   });
-  this.gravity = 1.5;
+  this.gravity = 1.5 * factor;
   this.divider = new Divider(this.width, this.height);
   this.dino = new Dinosaur(Math.floor(0.1 * this.width), this.divider.y);
   this.cacti = [];
 
-  this.runSpeed = -10;
+  this.runSpeed = -10 * factor;
   this.paused = true;
   this.noOfFrames = 0;
   this.score = 0;
@@ -126,14 +130,7 @@ function Game() {
   this.firstTime = true;
 
   canvas.addEventListener("click", function (event) {
-    if (!game.paused) {
-      return;
-    }
-    let x = event.clientX;
-    let y = event.clientY;
-
-    // Collision detection between clicked offset and element.
-    if (y > 75 && y < 225 && x > 330 && x < 480) {
+    if (game.paused) {
       game.paused = false;
       game.cacti = [];
       game.noOfFrames = 0;
@@ -160,7 +157,6 @@ Game.prototype.update = function () {
     document.spacePressed == true &&
     bottomWall(this.dino) >= topWall(this.divider)
   ) {
-    console.log("Conditions met");
     this.dino.jump();
   }
   this.dino.update(this.divider, this.gravity);
@@ -180,7 +176,7 @@ Game.prototype.update = function () {
   else if (
     this.cacti.length > 0 &&
     this.width - leftWall(this.cacti[this.cacti.length - 1]) >
-      this.jumpDistance + 150
+      this.jumpDistance + 150 * factor
   ) {
     this.spawnCactus(0.05);
   }
@@ -230,8 +226,10 @@ Game.prototype.draw = function () {
   var oldFill = this.context.fillStyle;
   this.context.fillStyle = "#FCF7F8";
   this.context.font = "20px sans-serif";
-  this.context.fillText("score: " + this.score, this.width - 120, 30);
-  this.context.fillText("high: " + this.high, this.width - 110, 60);
+  this.context
+    .fillText("score: " + this.score, this.width - 120 * factor, 30 * factor);
+	this.context
+	  .fillText("high: " + this.high, this.width - 110 * factor, 60 * factor);
 
   if (this.paused) {
     if (game.firstTime) {
@@ -239,13 +237,13 @@ Game.prototype.draw = function () {
       start.src = "assets/start.png"; // Set source path
       let pattern = this.context.createPattern(start, "no-repeat");
       this.context.fillStyle = pattern;
-      this.context.drawImage(start, 330, 75);
+      this.context.drawImage(start, 330 * factor, 75 * factor);
     } else {
       var restart = new Image(); // Create new img element
       restart.src = "assets/restart.png"; // Set source path
       let pattern = this.context.createPattern(restart, "no-repeat");
       this.context.fillStyle = pattern;
-      this.context.drawImage(restart, 330, 75);
+      this.context.drawImage(restart, 330 * factor, 75 * factor);
     }
   }
   this.context.fillStyle = oldFill;
