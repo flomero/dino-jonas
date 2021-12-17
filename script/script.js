@@ -34,10 +34,10 @@ Dinosaur.prototype.draw = function (context, paused) {
       variation = 0;
     }
     var santa = new Image(); // Create new img element
-    santa.src = "assets/santa.png"; // Set source path
+    santa.src = "assets/1.svg"; // Set source path
   } else if (!paused) {
     var santa = new Image(); // Create new img element
-    santa.src = "assets/santa-alt.png"; // Set source path
+    santa.src = "assets/3.svg"; // Set source path
   }
   var oldFill = context.fillStyle;
   context.clearRect(this.x, this.y, this.width, this.height);
